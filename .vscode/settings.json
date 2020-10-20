@@ -1,0 +1,5 @@
+{
+    "python.pythonPath": "C:\\Anaconda3\\envs\\myenv\\python.exe",
+    "python.formatting.provider": "black",
+    "editor.fontSize": 18
+}
