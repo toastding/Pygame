@@ -46,26 +46,59 @@ def is_board_full():
 
 
 # false
-print(is_board_full())
+# print(is_board_full())
 # marking all squares
+"""
 for row in range(BOARD_ROWS):
     for col in range(BOARD_COLS):
         mark_square(row, col, 1)
+"""
+
 # board is full --True
-print(is_board_full())
+# print(is_board_full())
 
 # DRAW # LINE
 def draw_lines():
+    # 1 horizontal line
     pygame.draw.line(screen, LINE_COLOR, (0, 200), (600, 200), LINE_WIDTH)
+    # 2 horizontal line
     pygame.draw.line(screen, LINE_COLOR, (0, 400), (600, 400), LINE_WIDTH)
+    # 1 vertical line
     pygame.draw.line(screen, LINE_COLOR, (200, 0), (200, 600), LINE_WIDTH)
+    # 2 vertical line
     pygame.draw.line(screen, LINE_COLOR, (400, 0), (400, 600), LINE_WIDTH)
 
 
 draw_lines()
 
+player = 1
+
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
+
+        # checking which screen we click
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            mouseX = event.pos[0]  # x
+            mouseY = event.pos[1]  # y
+
+            """print(mouseX)
+            print(mouseY)"""
+
+            clicked_row = int(mouseY // 200)
+            clicked_col = int(mouseX // 200)
+
+            """print(clicked_row)
+            print(clicked_col)"""
+
+            if available_square(clicked_row, clicked_col):
+                if player == 1:
+                    mark_square(clicked_row, clicked_col, 1)
+                    player = 2
+                elif player == 2:
+                    mark_square(clicked_row, clicked_col, 2)
+                    player = 1
+                print(board)
+
     pygame.display.update()
