@@ -8,10 +8,13 @@ HEIGHT = 600
 LINE_WIDTH = 15
 BOARD_ROWS = 3
 BOARD_COLS = 3
+CIRCLE_RADIUS = 60
+CIRCLE_WIDTH = 15
 
-
+RED = (255, 0, 0)
 BG_COLOR = (28, 170, 160)
 LINE_COLOR = (23, 145, 135)
+CIRCLE_COLOR = (240, 240, 222)
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("TIC TAC TOE")
@@ -21,6 +24,20 @@ screen.fill(BG_COLOR)
 # BOARD
 board = np.zeros((BOARD_ROWS, BOARD_COLS))
 # print(board)
+
+# draw X and O
+def draw_figures():
+    for row in range(BOARD_ROWS):
+        for col in range(BOARD_COLS):
+            if board[row][col] == 1:
+                pygame.draw.circle(
+                    screen,
+                    CIRCLE_COLOR,
+                    (int(col * 200 + 100), int(row * 200 + 100)),
+                    CIRCLE_RADIUS,
+                    CIRCLE_WIDTH,
+                )
+
 
 # mark the square
 def mark_square(row, col, player):
@@ -99,6 +116,8 @@ while True:
                 elif player == 2:
                     mark_square(clicked_row, clicked_col, 2)
                     player = 1
+
+                draw_figures()
                 print(board)
 
     pygame.display.update()
