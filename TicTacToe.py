@@ -10,11 +10,16 @@ BOARD_ROWS = 3
 BOARD_COLS = 3
 CIRCLE_RADIUS = 60
 CIRCLE_WIDTH = 15
+CROSS_WIDTH = 25
+SPACE = 55
 
+# color
 RED = (255, 0, 0)
 BG_COLOR = (28, 170, 160)
 LINE_COLOR = (23, 145, 135)
 CIRCLE_COLOR = (240, 240, 222)
+CROSS_COLOR = (66, 66, 66)
+
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("TIC TAC TOE")
@@ -36,6 +41,21 @@ def draw_figures():
                     (int(col * 200 + 100), int(row * 200 + 100)),
                     CIRCLE_RADIUS,
                     CIRCLE_WIDTH,
+                )
+            elif board[row][col] == 2:
+                pygame.draw.line(
+                    screen,
+                    CROSS_COLOR,
+                    (col * 200 + SPACE, row * 200 + 200 - SPACE),
+                    (col * 200 + 200 - SPACE, row * 200 + SPACE),
+                    CROSS_WIDTH,
+                )
+                pygame.draw.line(
+                    screen,
+                    CROSS_COLOR,
+                    (col * 200 + SPACE, row * 200 + SPACE),
+                    (col * 200 + 200 - SPACE, row * 200 + 200 - SPACE),
+                    CROSS_WIDTH,
                 )
 
 
