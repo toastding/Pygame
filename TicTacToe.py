@@ -82,6 +82,7 @@ def is_board_full():
     return True
 
 
+# to check win player
 def check_win(player):
     # vertical win check
     for col in range(BOARD_COLS):
