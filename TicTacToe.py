@@ -82,6 +82,82 @@ def is_board_full():
     return True
 
 
+def check_win(player):
+    # vertical win check
+    for col in range(BOARD_COLS):
+        if (
+            board[0][col] == player
+            and board[1][col] == player
+            and board[2][col] == player
+        ):
+            draw_vertical_winning_line(col, player)
+            return True
+    # horizontal win check
+    for row in range(BOARD_ROWS):
+        if (
+            board[row][0] == player
+            and board[row][1] == player
+            and board[row][2] == player
+        ):
+            draw_horizontal_winning_line(row, player)
+            return True
+
+    # asc diagonal win check
+    if board[2][0] == player and board[1][1] == player and board[0][2] == player:
+        draw_asc_diagonal(player)
+        return True
+
+    # desc diagonal win check
+    if board[0][0] == player and board[1][1] == player and board[2][2] == player:
+        draw_desc_diagonal(player)
+        return True
+
+    return False
+
+
+def draw_vertical_winning_line(col, player):
+    posX = col * 200 + 100
+
+    if player == 1:
+        color = CIRCLE_COLOR
+    elif player == 2:
+        color = CROSS_COLOR
+
+    pygame.draw.line(screen, color, (posX, 15), (posX, HEIGHT - 15), 15)
+
+
+def draw_horizontal_winning_line(row, player):
+    posY = row * 200 + 100
+    if player == 1:
+        color = CIRCLE_COLOR
+    elif player == 2:
+        color = CROSS_COLOR
+
+    pygame.draw.line(screen, color, (15, posY), (WIDTH - 15, posY), 15)
+
+
+def draw_asc_diagonal(player):
+    if player == 1:
+        color = CIRCLE_COLOR
+    elif player == 2:
+        color = CROSS_COLOR
+
+    pygame.draw.line(screen, color, (15, HEIGHT - 15), (WIDTH - 15, 15), 15)
+
+
+def draw_desc_diagonal(player):
+    if player == 1:
+        color = CIRCLE_COLOR
+    elif player == 2:
+        color = CROSS_COLOR
+
+    pygame.draw.line(screen, color, (15, 15), (WIDTH - 15, HEIGHT - 15), 15)
+
+
+def restart():
+    pass
+
+
 # false
 # print(is_board_full())
 # marking all squares
@@ -132,9 +208,11 @@ while True:
             if available_square(clicked_row, clicked_col):
                 if player == 1:
                     mark_square(clicked_row, clicked_col, 1)
+                    check_win(player)
                     player = 2
                 elif player == 2:
                     mark_square(clicked_row, clicked_col, 2)
+                    check_win(player)
                     player = 1
 
                 draw_figures()
